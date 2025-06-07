@@ -1,3 +1,4 @@
+"use client";
 import TiffinCard from "@/components/TiffinCard";
 import Navbar from "@/components/Navbar";
 import weeklyMenu from "@/app/data/weeklyMenu.json"; // Adjust the path as necessary
