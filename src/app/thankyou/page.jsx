@@ -14,10 +14,11 @@ export default function ThankYouPage() {
     const stored = localStorage.getItem("tiffinUserData");
     if (stored) {
       setUserData(JSON.parse(stored));
-      localStorage.removeItem("tiffinUserData"); // optional
+      localStorage.removeItem("tiffinUserData");
     }
   }, []);
 
+  console.log("User Data:", userData);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="bg-white shadow-lg rounded-2xl p-8 max-w-xl w-full text-center">

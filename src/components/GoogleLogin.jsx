@@ -1,28 +1,39 @@
 "use client";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "@/firebase";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "@/redux/userSlice"; // ✅ import actions
 
 export default function GoogleLogin() {
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const user = useSelector((state) => state.user.currentUser); // ✅ use global user
 
   const handleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const userData = result.user;
       console.log("User Data:", userData);
-      setUser(userData);
       localStorage.setItem("tiffinUser", JSON.stringify(userData));
+      dispatch(login(userData)); // ✅ update Redux
       alert(`Welcome, ${userData.displayName}`);
     } catch (error) {
       console.error("Login failed", error);
     }
   };
 
-  const handleLogout = () => {
-    auth.signOut();
-    setUser(null);
-    localStorage.removeItem("tiffinUser");
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      localStorage.removeItem("tiffinUser");
+      dispatch(logout()); // ✅ update Redux
+      console.log("User logged out");
+      await router.push("/");
+      console.log("Redirected to home page");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   return (

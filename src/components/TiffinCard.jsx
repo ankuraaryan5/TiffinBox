@@ -1,9 +1,13 @@
 "use client"
 import { useState } from "react";
 import { loadRazorpayScript } from "@/utils/loadRazorpay";
-
+import { useSelector } from "react-redux";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/firebase";
 
 export default function TiffinCard({ title, image, price, description, showOrderButton = false }) {
+  const user = useSelector((state) => state.user.currentUser);
+  console.log("User:", user);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -14,7 +18,11 @@ const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleOrderClick = () => {
-    setShowForm(true); // show form on "Order Now"
+    if (user === null) {
+      alert("Please login to place an order.");
+      return;
+    }
+    setShowForm(true); 
   };
     const handleOrder = async () => {
     const res = await loadRazorpayScript();
@@ -30,15 +38,28 @@ const handleChange = (e) => {
       name: "Tiffin Service",
       description: `Order for ${title}`,
       image: "/logo.png", 
-      handler: function (response) {
+      handler: async function (response) {
+        try {
+        await addDoc(collection(db, "orders"), {
+          userEmail: user.email,
+          mealTitle: title,
+          amount: price,
+          paymentId: response.razorpay_payment_id,
+          orderDetails: formData,
+          createdAt: serverTimestamp(),
+        });
         setShowForm(false);
         localStorage.setItem("tiffinUserData", JSON.stringify(formData));
         window.location.href = `/thankyou?orderId=${response.razorpay_payment_id}&amount=${price}`;
+        } catch (error) {
+          console.error("Error adding order:", error);
+        }
       },
       prefill: {
         name: formData.name,
         contact: formData.contact,
         address: formData.address,
+        email: user.email,
       },
       notes: {
         meal: title,
@@ -75,7 +96,7 @@ const handleChange = (e) => {
             >
               ✕
             </button>
-            <h2 className="text-xl font-semibold mb-4">Enter Your Details</h2>
+            <h2 className="text-xl font-semibold mb-4">Ordering For {user.email}</h2>
             <input
               type="text"
               name="name"
@@ -114,4 +135,3 @@ const handleChange = (e) => {
     </div>
   );
 }
-// key: "rzp_test_lHnSe52gU23IV8", 

@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "@/redux/userSlice";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "@/firebase";
+import { useRouter } from "next/navigation";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useDispatch()
+  const router = useRouter();
   const user = useSelector((state) => state.user.currentUser);
   const handleLogin = async () => {
     try {
@@ -23,9 +25,17 @@ export default function Navbar() {
       console.error("Login error:", err);
     }
   };
-  const handleLogout = () => {
-    auth.signOut();
-    dispatch(logout());
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      localStorage.removeItem("tiffinUser");
+      dispatch(logout()); // ✅ update Redux
+      console.log("User logged out");
+      await router.push("/");
+      console.log("Redirected to home page");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -92,11 +102,14 @@ export default function Navbar() {
           <Link href="/order" className="block text-white hover:underline">Order</Link>
           <Link href="/about" className="block text-white hover:underline">About</Link>
           {user ? (
-            
+            <div className="flex flex-col items-start">
+              <Link href="/myOrders" className="block text-white hover:underline">
+                My Orders
+              </Link>
               <button onClick={handleLogout} className="mt-2 text-sm text-white underline hover:text-red-100">
                 Logout
               </button>
-            
+            </div>
           ) : (
             <button onClick={handleLogin} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
               Login with Google
