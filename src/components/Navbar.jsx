@@ -46,7 +46,7 @@ export default function Navbar() {
     <nav className="bg-yellow-500 px-6 py-4 shadow-md sticky top-0 z-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <img src="/TiffinBox.png" alt="Logo" className="h-10 sm:h-12" />
+          <img src="/TiffinBox.webp" alt="Logo" className="h-10 sm:h-12" />
           <Link href="/" className="text-xl sm:text-2xl font-bold text-white">
             TiffinBox
           </Link>
