@@ -11,13 +11,13 @@
                 },
                 "lunch": {
                     "title": "Chawal, Daal, Bhujiya, Papad, Salad",
-                    "image": "https://images.unsplash.com/photo-1604908177225-d2d7ff975898",
+                    "image": "./ChawalDaalBhujiya.png",
                     "price": 100,
                     "description": "Traditional Bihari meal with rice, daal, and sides."
                 },
                 "dinner": {
                     "title": "Roti/Chawal & Manchurian",
-                    "image": "https://images.unsplash.com/photo-1631515243346-31d3ef7c3b52",
+                    "image": "Manchurian.png",
                     "price": 120,
                     "description": "Roti or chawal with spicy manchurian."
                 }
@@ -34,13 +34,13 @@
                 },
                 "lunch": {
                     "title": "Chawal, DaalFry, Soyabean, Papad, Salad",
-                    "image": "https://images.unsplash.com/photo-1600628422760-e8c7b43d56e3",
+                    "image": "Soyabean.png",
                     "price": 110,
                     "description": "Enjoy a wholesome, satisfying vegetarian meal featuring Steamed Basmati Rice - soft, aromatic, and perfectly cooked to pair with any curry or dal"
                 },
                 "dinner": {
                     "title": "Puri, Sabji, & Sewaiyan",
-                    "image": "https://images.unsplash.com/photo-1666001120694-3ebe8fd207be",
+                    "image": "./Sewaiyaa.png",
                     "price": 100,
                     "description": "Crispy puris served with mixed vegetable curry and sweet sewaiyan."
                 }
@@ -51,19 +51,19 @@
             "meals": {
                 "breakfast": {
                     "title": "Poha",
-                    "image": "https://images.unsplash.com/photo-1604908177225-d2d7ff975898",
+                    "image": "./Poha.png",
                     "price": 40,
                     "description": "Light and healthy Poha made with flattened rice, peanuts, and spices."
                 },
                 "lunch": {
                     "title": "Kadhi Chawal, Bhujiya, Papad, Pickles",
-                    "image": "https://images.unsplash.com/photo-1604908177225-d2d7ff975898",
+                    "image": "./ChawalCurry.png",
                     "price": 100,
                     "description": "Cool and creamy curd rice paired with crunchy bhujia and crisp papad — a light, comforting, and flavorful combination perfect for any time of day"
                 },
                 "dinner": {
                     "title": "Roti/Chawal & Chicken Curry / Paneer",
-                    "image": "https://images.unsplash.com/photo-1631515243346-31d3ef7c3b52",
+                    "image": "./ChickenRoti.png",
                     "price": 120,
                     "description": "Delicious chicken curry / Paneer served with roti or chawal."
                 }
@@ -80,13 +80,13 @@
                 },
                 "lunch": {
                     "title": "Fried Rice, Tadka, Pickles",
-                    "image": "https://images.unsplash.com/photo-1600628422760-e8c7b43d56e3",
+                    "image": "./FriedRice.png",
                     "price": 110,
                     "description": "Flavorful fried rice with spicy tadka, served with tangy pickles."
                 },
                 "dinner": {
                     "title": "Roti, Sabji, & Kheer",
-                    "image": "https://images.unsplash.com/photo-1666001120694-3ebe8fd207be",
+                    "image": "./Kheer.png",
                     "price": 100,
                     "description": "Soft roti served with seasonal vegetable curry and sweet kheer for dessert."
                 }
@@ -97,19 +97,19 @@
             "meals": {
                 "breakfast": {
                     "title": "Sattu Paratha & Chutney",
-                    "image": "https://images.unsplash.com/photo-1604908177225-d2d7ff975898",
+                    "image": "./Sattu.png",
                     "price": 70,
                     "description": "Nutritious sattu paratha served with tangy chutney."
                 },
                 "lunch": {
                     "title": "Veg Biryani, Raita, Salad",
-                    "image": "https://images.unsplash.com/photo-1600628422011-324af2f87e6d",
+                    "image": "./VegBiryani.png",
                     "price": 120,
                     "description": "Aromatic veg biryani served with raita and fresh salad."
                 },
                 "dinner": {
                     "title": "Roti & Paneer Butter Masala",
-                    "image": "https://images.unsplash.com/photo-1631515243346-31d3ef7c3b52",
+                    "image": "./PaneerButter.png",
                     "price": 130,
                     "description": "Rich and creamy paneer butter masala served with soft roti."
                 }
@@ -120,19 +120,19 @@
             "meals": {
                 "breakfast": {
                     "title": "Puri & Aloo Chana Sabji",
-                    "image": "https://images.unsplash.com/photo-1604908177225-d2d7ff975898",
+                    "image": "./PuriSabji.png",
                     "price": 60,
                     "description": "Crispy puris served with flavorful aloo chana sabji."
                 },
                 "lunch": {
                     "title": "Chola Chawal",
-                    "image": "https://images.unsplash.com/photo-1600628422011-324af2f87e6d",
+                    "image": "./CholaChawal.png",
                     "price": 130,
                     "description": "Spicy chola served with steamed rice"
                 },
                 "dinner": {
                     "title": "Khichdi Chokha & Papad",
-                    "image": "https://images.unsplash.com/photo-1631515243346-31d3ef7c3b52",
+                    "image": "./Khichdi.png",
                     "price": 120,
                     "description": "Comforting khichdi served with chokha and crispy papad."
                 }
@@ -143,19 +143,19 @@
             "meals": {
                 "breakfast": {
                     "title": "Chole Bhature",
-                    "image": "https://images.unsplash.com/photo-1604908177225-d2d7ff975898",
+                    "image": "./ChholaBhatura.png",
                     "price": 80,
                     "description": "Fluffy bhature served with spicy chole."
                 },
                 "lunch": {
                     "title": "Chawal, Kathal Sabzi, Salad",
-                    "image": "https://images.unsplash.com/photo-1600628422011-324af2f87e6d",
+                    "image": "./Kathal.png",
                     "price": 150,
                     "description": "Steamed rice served with jackfruit curry and fresh salad."
                 },
                 "dinner": {
                     "title": "Chicken Curry & Jeera Rice or Paneer Butter Masala with Gulab Jamun",
-                    "image": "https://images.unsplash.com/photo-1631515243346-31d3ef7c3b52",
+                    "image": "./GulabJamun.png",
                     "price": 140,
                     "description": "Spicy chicken curry / Paneer butter masala served with jeera rice, and a sweet treat of gulab jamun for dessert."
                 }
