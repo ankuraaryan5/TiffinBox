@@ -52,7 +52,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Desktop Nav */}
+        
         <div className="hidden md:flex space-x-6 items-center">
           <Link href="/" className="text-white hover:underline">
             Home

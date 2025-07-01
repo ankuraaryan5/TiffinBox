@@ -1,46 +1,95 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { loadRazorpayScript } from "@/utils/loadRazorpay";
+import { db } from "@/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-export default function SubscriptionPlans() {
-  const router = useRouter();
+export default function SubscriptionCard() {
+  const user = useSelector((state) => state.user.currentUser);
+  const subscriptionPlans = [
+  {
+    name: "Daily",
+    days: 1,
+    price: 200,
+  },
+  {
+    name: "Weekly",
+    days: 7,
+    price: 1200,
+  },
+  {
+    name: "Monthly",
+    days: 30,
+    price: 4500,
+  },
+];
+  const handleSubscribe = async (plan) => {
+    if (!user) {
+      alert("Please login to subscribe.");
+      return;
+    }
 
-  const plans = [
-    {
-      title: "Daily",
-      price: "as per dish",
-      desc: "Perfect for trying it out.",
-      link: "/order", 
-    },
-    {
-      title: "Weekly",
-      price: "₹3500",
-      desc: "Best for regular users.",
-      link: "https://rzp.io/rzp/xuLLNXuZ",
-    },
-    {
-      title: "Monthly",
-      price: "₹6000",
-      desc: "Most value for money!",
-      link: "https://rzp.io/rzp/wZAE0BE",
-    },
-  ];
+    const res = await loadRazorpayScript();
+    if (!res) {
+      alert("Razorpay SDK failed to load.");
+      return;
+    }
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      amount: plan.price * 100,
+      currency: "INR",
+      name: "Tiffin Subscription",
+      description: `${plan.name} Plan`,
+      handler: async function (response) {
+        const start = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
+        const end = new Date(start.getTime() + plan.days * 24 * 60 * 60 * 1000);
+
+        await addDoc(collection(db, "subscriptions"), {
+          userEmail: user.email,
+          plan: plan.name,
+          days: plan.days,
+          amount: plan.price,
+          startDate: start,
+          endDate: end,
+          isActive: true,
+          paymentId: response.razorpay_payment_id,
+          createdAt: serverTimestamp(),
+        });
+        localStorage.setItem("subscription", JSON.stringify({ plan: plan.name }));
+        window.location.href = `/thankyou?subscription=${plan.name}`;
+      },
+      prefill: {
+        name: user.name || "",
+        email: user.email,
+      },
+      theme: {
+        color: "#22c55e",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
 
   return (
-    <section className="py-12 bg-yellow-100 text-center">
-      <h2 className="text-3xl font-bold mb-8">Subscription Plans</h2>
-      <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
-        {plans.map((plan, i) => (
-          <div
-            key={i}
-            onClick={() => window.open(plan.link, "_blank")}
-            className="cursor-pointer border rounded-xl p-6 shadow hover:shadow-lg transition-all hover:scale-[1.02] bg-white"
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto my-10 px-4">
+      {subscriptionPlans.map((plan, idx) => (
+        <div
+          key={idx}
+          className="border rounded-lg p-6 shadow hover:shadow-lg transition duration-300 bg-white"
+        >
+          <h3 className="text-xl font-bold mb-2 text-green-700">{plan.name} Plan</h3>
+          <p className="text-gray-600 mb-1">{plan.days} day(s)</p>
+          <p className="font-semibold text-green-600 mb-4">₹{plan.price}</p>
+          <button
+            className="bg-green-600 text-white px-4 py-2 rounded w-full hover:bg-green-700"
+            onClick={() => handleSubscribe(plan)}
           >
-            <h3 className="text-2xl font-semibold mb-2">{plan.title}</h3>
-            <p className="text-3xl font-bold text-green-600 mb-2">{plan.price}</p>
-            <p className="text-gray-600">{plan.desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+            Subscribe Now
+          </button>
+        </div>
+      ))}
+    </div>
   );
 }
